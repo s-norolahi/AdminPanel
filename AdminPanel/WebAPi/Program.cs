@@ -1,9 +1,13 @@
+using Application;
+using Microsoft.Extensions.DependencyInjection;
+using WebAPi;
+using WebFramework.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
+var siteSetting = SiteConfiguration.GetAppSetting(builder.Configuration);
+builder.Services.AddContext(builder.Configuration);
+builder.Services.AddJwtAuthentication(siteSetting.JwtSettings);
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

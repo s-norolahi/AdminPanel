@@ -1,5 +1,6 @@
 ﻿namespace Application
 {
+    /*test*/
     public class AppSetting
     {
         public JwtSettings JwtSettings { get; set; }

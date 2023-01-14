@@ -1,6 +1,5 @@
 ﻿using Application;
 using Azure.Core;
-using Domain.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
@@ -12,22 +11,23 @@ using System.Security.Claims;
 
 using System.Text;
 using System.Threading.Tasks;
+using Services.Interface.Security;
+using Domain.Entities.User;
 
-namespace Services.Services
+namespace Services.Services.Security
 {
-    /**/
     public class JwtService : IJwtService, IScopedDependency
     {
         private readonly AppSetting _siteSetting;
         private readonly UserManager<User> signInManager;
-        
+
         public JwtService(IOptionsSnapshot<AppSetting> settings, UserManager<User> signInManager)
         {
             _siteSetting = settings.Value;
             this.signInManager = signInManager;
         }
 
-        public async Task<AccessToken> GenerateAsync(User user)
+        public async Task<AccessToken> GenerateAsync(User user,string roles)
         {
             var secretKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey); // longer that 16 character
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256Signature);
@@ -59,12 +59,12 @@ namespace Services.Services
 
             //string encryptedJwt = tokenHandler.WriteToken(securityToken);
 
-            return new AccessToken(securityToken);
+            return new AccessToken(securityToken,roles);
         }
 
         private async Task<IEnumerable<Claim>> _getClaimsAsync(User user)
         {
-            var result = await signInManager.CreateAsync(user);
+            //var result = await signInManager.CreateAsync(user);
             //add custom claims
             var list = new List<Claim>();
             list.Add(new Claim(ClaimTypes.MobilePhone, "09123456987"));

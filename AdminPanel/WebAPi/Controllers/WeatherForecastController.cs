@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

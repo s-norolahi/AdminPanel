@@ -1,15 +1,17 @@
 ﻿using Application;
 using Application.Exceptions;
 using Application.Utilities;
-using Domain.User;
+using Domain.Entities.User;
 using InfraStructure;
 using InfraStructure.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Services.Interface.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,13 @@ namespace WebFramework.Configuration
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+            });
+        }
+        public static void AddAutorization(this IServiceCollection services)
+        {
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter("Bearer")); //Apply AuthorizeFilter as global filter to all actions
             });
         }
         public static void AddJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings)
@@ -79,16 +88,16 @@ namespace WebFramework.Configuration
                     OnTokenValidated = async context =>
                     {
                         var signInManager = context.HttpContext.RequestServices.GetRequiredService<SignInManager<User>>();
-                        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+                        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
 
                         var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
                         if (claimsIdentity?.Claims?.Any() != true)
                             context.Fail("This token has no claims.");
-
+                        
                         var securityStamp = claimsIdentity?.FindFirst(new ClaimsIdentityOptions().SecurityStampClaimType);
                         if (!securityStamp.Value.HasValue())
                             context.Fail("This token has no security stamp");
-
+                       
                         //Find user and token from database and perform your custom validation
                         var userId = 1;//claimsIdentity.GetUserId<int>();
                         var user = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted, userId);
@@ -96,14 +105,16 @@ namespace WebFramework.Configuration
                         //if (user.SecurityStamp != Guid.Parse(securityStamp))
                         //    context.Fail("Token security stamp is not valid.");
 
-                        var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
+                        /*var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
+
                         if (validatedUser == null)
                             context.Fail("Token security stamp is not valid.");
+                        */
 
                         if (!user.IsActive)
                             context.Fail("User is not active.");
 
-                        await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
+                        //await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
                     },
                     OnChallenge = context =>
                     {

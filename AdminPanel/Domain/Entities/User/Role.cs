@@ -9,13 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.User
+namespace Domain.Entities.User
 {
     public class Role : IdentityRole<int>, IEntity
     {
         [Required]
         [StringLength(100)]
-        public string ? Description { get; set; }
+        public string? Description { get; set; }
     }
 
     public class RoleConfiguration : IEntityTypeConfiguration<Role>

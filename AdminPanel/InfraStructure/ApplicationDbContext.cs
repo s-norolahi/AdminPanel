@@ -9,9 +9,9 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.User;
 using Domain.Common;
 using Application.Utilities;
+using Domain.Entities.User;
 
 namespace InfraStructure
 {

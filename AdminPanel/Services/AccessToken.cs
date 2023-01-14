@@ -8,12 +8,14 @@ namespace Services
         public string refresh_token { get; set; }
         public string token_type { get; set; }
         public int expires_in { get; set; }
+        public string roles { get; set; }
 
-        public AccessToken(JwtSecurityToken securityToken)
+        public AccessToken(JwtSecurityToken securityToken, string roles)
         {
             access_token = new JwtSecurityTokenHandler().WriteToken(securityToken);
             token_type = "Bearer";
             expires_in = (int)(securityToken.ValidTo - DateTime.UtcNow).TotalSeconds;
+            this.roles = roles;
         }
     }
 }

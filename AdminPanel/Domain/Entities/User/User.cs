@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.User
+namespace Domain.Entities.User
 {
 
     public class User : IdentityUser<int>, IEntity<int>
@@ -27,7 +27,7 @@ namespace Domain.User
         public bool IsActive { get; set; }
         public DateTimeOffset? LastLoginDate { get; set; }
 
-        
+
     }
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

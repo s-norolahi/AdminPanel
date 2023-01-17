@@ -99,17 +99,17 @@ namespace WebFramework.Configuration
                             context.Fail("This token has no security stamp");
                        
                         //Find user and token from database and perform your custom validation
-                        var userId = 1;//claimsIdentity.GetUserId<int>();
+                        var userId = claimsIdentity.GetUserId<int>();
                         var user = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted, userId);
 
                         //if (user.SecurityStamp != Guid.Parse(securityStamp))
                         //    context.Fail("Token security stamp is not valid.");
 
-                        /*var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
+                        var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
 
                         if (validatedUser == null)
                             context.Fail("Token security stamp is not valid.");
-                        */
+                        
 
                         if (!user.IsActive)
                             context.Fail("User is not active.");

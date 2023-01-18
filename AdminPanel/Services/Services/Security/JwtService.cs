@@ -19,9 +19,9 @@ namespace Services.Services.Security
     public class JwtService : IJwtService, IScopedDependency
     {
         private readonly AppSetting _siteSetting;
-        private readonly UserManager<User> signInManager;
+        private readonly SignInManager<User> signInManager;
 
-        public JwtService(IOptionsSnapshot<AppSetting> settings, UserManager<User> signInManager)
+        public JwtService(IOptionsSnapshot<AppSetting> settings, SignInManager<User> signInManager)
         {
             _siteSetting = settings.Value;
             this.signInManager = signInManager;
@@ -64,9 +64,9 @@ namespace Services.Services.Security
 
         private async Task<IEnumerable<Claim>> _getClaimsAsync(User user)
         {
-            //var result = await signInManager.CreateAsync(user);
+            var result = await signInManager.ClaimsFactory.CreateAsync(user);
             //add custom claims
-            var list = new List<Claim>();
+            var list = new List<Claim>(result.Claims);
             list.Add(new Claim(ClaimTypes.MobilePhone, "09123456987"));
             return list;
         }

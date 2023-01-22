@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Services.Interface
         void UpdateReview(Review review);
         Review GetReview(long id);
         ICollection<Review> GetAllReviews();
-        ApplicationUser GetUserForReview(long id);
+        //ApplicationUser GetUserForReview(long id);
         Product GetProductForReview(long id);
     }
 }

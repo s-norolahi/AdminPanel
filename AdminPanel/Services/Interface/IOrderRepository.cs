@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Services.Interface
         Order GetOrder(long id);
         ICollection<Order> GetAllOrders();
         ICollection<Order> GetOrdersForUser(string userId);
-        ApplicationUser GetUserForOrder(long id);
+        //ApplicationUser GetUserForOrder(long id);
         ShippingMethod GetShippingMethodForOrder(long id);
         ICollection<OrderDetail> GetDetailsForOrder(long id);
     }

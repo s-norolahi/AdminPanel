@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +11,12 @@ namespace Services.Services
 {
     public class ProducerDetailRepository: IProducerDetailRepository
     {
+        private ApplicationDbContext context;
 
+        public ProducerDetailRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
 
         public void AddProducerDetail(ProducerDetail producerDetail)
         {

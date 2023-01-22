@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Services.Interface
         void UpdateInvoice(Invoice invoice);
         Invoice GetInvoice(long id);
         ICollection<Invoice> GetAllInvoices();
-        ApplicationUser GetUserForInvoice(long id);
+        //ApplicationUser GetUserForInvoice(long id);
         Order GetOrderForInvoice(long id);
         ICollection<InvoiceDetail> GetDetailsForInvoice(long id);
     }

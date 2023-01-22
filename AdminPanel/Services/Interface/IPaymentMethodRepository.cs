@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,6 @@ namespace Services.Interface
         PaymentMethod GetPaymentMethod(long id);
         ICollection<PaymentMethod> GetAllPaymentMethods();
         PaymentType GetTypeForPaymentMethod(long id);
-        ApplicationUser GetUserForPaymentMethod(long id);
+        //ApplicationUser GetUserForPaymentMethod(long id);
     }
 }

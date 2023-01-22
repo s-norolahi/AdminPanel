@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +12,12 @@ namespace Services.Services
     public class ReviewRepository: IReviewRepository
     {
 
+        private ApplicationDbContext context;
+
+        public ReviewRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
 
         public void AddReview(Review review)
         {
@@ -38,12 +47,12 @@ namespace Services.Services
             return context.Reviews.ToList();
         }
 
-        public ApplicationUser GetUserForReview(long id)
-        {
-            return (ApplicationUser)context.Users.Find(
-                context.Reviews.Find(id)?.ApplicationUserID
-            );
-        }
+        //public ApplicationUser GetUserForReview(long id)
+        //{
+        //    return (ApplicationUser)context.Users.Find(
+        //        context.Reviews.Find(id)?.ApplicationUserID
+        //    );
+        //}
 
         public Product GetProductForReview(long id)
         {

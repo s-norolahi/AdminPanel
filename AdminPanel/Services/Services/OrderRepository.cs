@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +11,12 @@ namespace Services.Services
 {
     public class OrderRepository: IOrderRepository
     {
+        private ApplicationDbContext context;
 
+        public OrderRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
         public void AddOrder(Order order)
         {
             context.Orders.Add(order);
@@ -48,12 +56,12 @@ namespace Services.Services
             return context.Orders.Where(order => order.ApplicationUserID == userId).ToList();
         }
 
-        public ApplicationUser GetUserForOrder(long id)
-        {
-            return (ApplicationUser)context.Users.Find(
-                context.Orders.Find(id)?.ApplicationUserID
-            );
-        }
+        //public ApplicationUser GetUserForOrder(long id)
+        //{
+        //    return (ApplicationUser)context.Users.Find(
+        //        context.Orders.Find(id)?.ApplicationUserID
+        //    );
+        //}
 
         public ShippingMethod GetShippingMethodForOrder(long id)
         {

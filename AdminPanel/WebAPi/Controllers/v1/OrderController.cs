@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.Entities;
+using Domain.Models.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interface;
 
 namespace WebAPi.Controllers.v1
 {
@@ -16,14 +19,15 @@ namespace WebAPi.Controllers.v1
                IOrderRepository orderRepository,
                IProductRepository productRepository,
                IShippingMethodRepository shippingMethodRepository,
-               IPaymentTypeRepository paymentTypeRepository,
-               UserManager<ApplicationUser> userManager)
+               IPaymentTypeRepository paymentTypeRepository
+              // UserManager<ApplicationUser> userManager
+              )
         {
             this.orderRepository = orderRepository;
             this.productRepository = productRepository;
             this.shippingMethodRepository = shippingMethodRepository;
             this.paymentTypeRepository = paymentTypeRepository;
-            this.userManager = userManager;
+            //this.userManager = userManager;
         }
 
         [HttpGet("{id:required}")]
@@ -52,7 +56,7 @@ namespace WebAPi.Controllers.v1
         {
             var orderToAdd = new Order
             {
-                ApplicationUserID = (await userManager.FindByNameAsync(cart.Username)).Id,
+                //ApplicationUserID = (await userManager.FindByNameAsync(cart.Username)).Id,
                 ShippingMethodID = cart.ShippingMethodID,
                 Note = cart.Note,
                 DateAndTime = DateTime.Now,
@@ -125,13 +129,13 @@ namespace WebAPi.Controllers.v1
             return paymentTypeRepository.GetAllPaymentTypes().ToList();
         }
 
-        [HttpPost("history")]
-        public async Task<List<Order>> OrderHistory([FromBody] UserDTO user)
-        {
-            var retrievedUser = await userManager.FindByNameAsync(user.Username);
+        //[HttpPost("history")]
+        //public async Task<List<Order>> OrderHistory([FromBody] UserDTO user)
+        //{
+        //    var retrievedUser = await userManager.FindByNameAsync(user.Username);
 
-            return orderRepository.GetOrdersForUser(retrievedUser.Id).ToList();
-        }
+        //    return orderRepository.GetOrdersForUser(retrievedUser.Id).ToList();
+        //}
     }
 }
-}
+

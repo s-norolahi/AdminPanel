@@ -16,6 +16,6 @@ namespace Domain.Entities
 
         public DateTime ExpiryDate { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        //public ApplicationUser ApplicationUser { get; set; }
     }
 }

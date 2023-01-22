@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +11,12 @@ namespace Services.Services
 {
     public class PaymentTypeRepository: IPaymentTypeRepository
     {
+        private ApplicationDbContext context;
 
+        public PaymentTypeRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
         public void AddPaymentType(PaymentType paymentType)
         {
             context.PaymentTypes.Add(paymentType);

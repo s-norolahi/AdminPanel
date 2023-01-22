@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +11,13 @@ namespace Services.Services
 {
     public class InvoiceRepository: IInvoiceRepository
     {
+        private ApplicationDbContext context;
+
+        public InvoiceRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public void AddInvoice(Invoice invoice)
         {
             context.Invoices.Add(invoice);
@@ -36,10 +46,10 @@ namespace Services.Services
             return context.Invoices.ToList();
         }
 
-        public ApplicationUser GetUserForInvoice(long id)
-        {
-            return context.Invoices.Find(id)?.ApplicationUser;
-        }
+        //public ApplicationUser GetUserForInvoice(long id)
+        //{
+        //    return context.Invoices.Find(id)?.ApplicationUser;
+        //}
 
         public Order GetOrderForInvoice(long id)
         {

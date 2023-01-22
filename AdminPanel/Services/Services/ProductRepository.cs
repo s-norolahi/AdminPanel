@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +11,13 @@ namespace Services.Services
 {
     public class ProductRepository: IProductRepository
     {
+        private ApplicationDbContext context;
+
+        public ProductRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public void AddProduct(Product product)
         {
             context.Products.Add(product);

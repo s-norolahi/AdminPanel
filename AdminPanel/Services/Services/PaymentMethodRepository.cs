@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +11,12 @@ namespace Services.Services
 {
     public class PaymentMethodRepository: IPaymentMethodRepository
     {
+        private ApplicationDbContext context;
 
+        public PaymentMethodRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
 
         public void AddPaymentMethod(PaymentMethod paymentMethod)
         {
@@ -45,11 +53,11 @@ namespace Services.Services
             );
         }
 
-        public ApplicationUser GetUserForPaymentMethod(long id)
-        {
-            return (ApplicationUser)context.Users.Find(
-                context.PaymentMethods.Find(id)?.ApplicationUser
-            );
-        }
+        //public ApplicationUser GetUserForPaymentMethod(long id)
+        //{
+        //    return (ApplicationUser)context.Users.Find(
+        //        context.PaymentMethods.Find(id)?.ApplicationUser
+        //    );
+        //}
     }
 }

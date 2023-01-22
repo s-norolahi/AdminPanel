@@ -1,4 +1,6 @@
-﻿using Services.Interface;
+﻿using Domain.Entities;
+using InfraStructure;
+using Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,14 @@ namespace Services.Services
 {
     public class ShippingMethodRepository: IShippingMethodRepository
     {
+
+        private ApplicationDbContext context;
+
+        public ShippingMethodRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public void AddShippingMethod(ShippingMethod shippingMethod)
         {
             context.ShippingMethods.Add(shippingMethod);

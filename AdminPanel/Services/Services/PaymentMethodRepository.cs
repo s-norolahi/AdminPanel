@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class PaymentMethodRepository: IPaymentMethodRepository
+    public class PaymentMethodRepository//: IPaymentMethodRepository
     {
+        /*
         private ApplicationDbContext context;
 
         public PaymentMethodRepository(ApplicationDbContext context)
@@ -59,5 +60,6 @@ namespace Services.Services
         //        context.PaymentMethods.Find(id)?.ApplicationUser
         //    );
         //}
+        */
     }
 }

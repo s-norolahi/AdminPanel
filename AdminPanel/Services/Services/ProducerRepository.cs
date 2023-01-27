@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ProducerRepository: IProducerRepository
+    public class ProducerRepository//: IProducerRepository
     {
-        private ApplicationDbContext context;
+      /*  private ApplicationDbContext context;
 
         public ProducerRepository(ApplicationDbContext context)
         {
@@ -49,5 +49,6 @@ namespace Services.Services
         {
             return context.ProducerDetails.Where(pd => pd.ID == id).ToList();
         }
+      */
     }
 }

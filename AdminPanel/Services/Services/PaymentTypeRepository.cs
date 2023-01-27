@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class PaymentTypeRepository: IPaymentTypeRepository
+    public class PaymentTypeRepository//: IPaymentTypeRepository
     {
+        /*
         private ApplicationDbContext context;
 
         public PaymentTypeRepository(ApplicationDbContext context)
@@ -44,5 +45,6 @@ namespace Services.Services
         {
             return context.PaymentTypes.ToList();
         }
+        */
     }
 }

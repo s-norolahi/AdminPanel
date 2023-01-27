@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.Entities;
+using Domain.Models.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interface;
 
 namespace WebAPi.Controllers.v1
 {

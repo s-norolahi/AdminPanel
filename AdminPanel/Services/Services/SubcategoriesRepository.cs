@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class SubcategoriesRepository: ISubcategoriesRepository
+    public class SubcategoriesRepository//: ISubcategoriesRepository
     {
-
+        /*
         private ApplicationDbContext context;
 
         public SubcategoriesRepository(ApplicationDbContext context)
@@ -59,5 +59,6 @@ namespace Services.Services
                 .Skip((page - 1) * limit).Take(limit)
                 .ToList();
         }
+        */
     }
 }

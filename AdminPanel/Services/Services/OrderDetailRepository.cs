@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class OrderDetailRepository: IOrderDetailRepository
+    public class OrderDetailRepository//: IOrderDetailRepository
     {
+        /*
         private ApplicationDbContext context;
 
         public OrderDetailRepository(ApplicationDbContext context)
@@ -54,5 +55,6 @@ namespace Services.Services
         {
             return context.OrderDetails.Find(id)?.Product;
         }
+        */
     }
 }

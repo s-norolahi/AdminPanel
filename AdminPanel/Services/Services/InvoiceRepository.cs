@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class InvoiceRepository: IInvoiceRepository
+    public class InvoiceRepository//: IInvoiceRepository
     {
+        /*
         private ApplicationDbContext context;
 
         public InvoiceRepository(ApplicationDbContext context)
@@ -60,5 +61,6 @@ namespace Services.Services
         {
             return context.Invoices.Find(id)?.Details;
         }
+        */
     }
 }

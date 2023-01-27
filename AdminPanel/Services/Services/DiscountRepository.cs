@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class DiscountRepository: IDiscountRepository
+    public class DiscountRepository//: IDiscountRepository
     {
-
+        /*
         private ApplicationDbContext context;
 
         public DiscountRepository(ApplicationDbContext context)
@@ -51,5 +51,6 @@ namespace Services.Services
         {
             return context.Discounts.Find(id)?.Product;
         }
+        */
     }
 }

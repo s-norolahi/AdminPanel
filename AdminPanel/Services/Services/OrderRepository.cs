@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class OrderRepository: IOrderRepository
+    public class OrderRepository//: IOrderRepository
     {
+        /*
         private ApplicationDbContext context;
 
         public OrderRepository(ApplicationDbContext context)
@@ -74,5 +75,6 @@ namespace Services.Services
         {
             return context.OrderDetails.Where(od => od.OrderID == id).ToList();
         }
+        */
     }
 }

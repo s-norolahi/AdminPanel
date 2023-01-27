@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class CategoriesRepository: ICategoriesRepository
+    public class CategoriesRepository//: ICategoriesRepository
     {
-        private ApplicationDbContext context;
+       /* private ApplicationDbContext context;
 
         public CategoriesRepository(ApplicationDbContext context)
         {
@@ -57,5 +57,6 @@ namespace Services.Services
                 .Skip((page - 1) * limit).Take(limit)
                 .ToList();
         }
+       */
     }
 }

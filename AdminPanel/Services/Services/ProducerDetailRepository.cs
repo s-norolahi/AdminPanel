@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ProducerDetailRepository: IProducerDetailRepository
+    public class ProducerDetailRepository//: IProducerDetailRepository
     {
+        /*
         private ApplicationDbContext context;
 
         public ProducerDetailRepository(ApplicationDbContext context)
@@ -52,5 +53,6 @@ namespace Services.Services
                 context.ProducerDetails.Find(id)?.ProducerID
             );
         }
+        */
     }
 }

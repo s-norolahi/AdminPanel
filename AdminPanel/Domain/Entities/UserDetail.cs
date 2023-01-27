@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class UserDetail
+    public class UserDetail : IEntity
     {
         public long ID { get; set; }
 
@@ -30,6 +31,6 @@ namespace Domain.Entities
         [StringLength(200)]
         public string Address3 { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+       // public ApplicationUser ApplicationUser { get; set; }
     }
 }

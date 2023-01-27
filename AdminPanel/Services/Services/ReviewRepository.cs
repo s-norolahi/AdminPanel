@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ReviewRepository: IReviewRepository
+    public class ReviewRepository//: IReviewRepository
     {
-
+        /*
         private ApplicationDbContext context;
 
         public ReviewRepository(ApplicationDbContext context)
@@ -60,5 +60,6 @@ namespace Services.Services
                 context.Reviews.Find(id)?.Product
             );
         }
+        */
     }
 }

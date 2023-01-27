@@ -1,5 +1,4 @@
 ﻿using Application;
-using Azure.Core;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;

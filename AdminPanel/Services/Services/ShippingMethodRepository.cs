@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ShippingMethodRepository: IShippingMethodRepository
+    public class ShippingMethodRepository//: IShippingMethodRepository
     {
-
+        /*
         private ApplicationDbContext context;
 
         public ShippingMethodRepository(ApplicationDbContext context)
@@ -46,5 +46,6 @@ namespace Services.Services
         {
             return context.ShippingMethods.ToList();
         }
+        */
     }
 }

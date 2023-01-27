@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ProductRepository: IProductRepository
+    public class ProductRepository//: IProductRepository
     {
+        /*
         private ApplicationDbContext context;
 
         public ProductRepository(ApplicationDbContext context)
@@ -81,5 +82,6 @@ namespace Services.Services
         {
             return context.Products.Find(id).AvailableQuantity > neededQuantity;
         }
+        */
     }
 }

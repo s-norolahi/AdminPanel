@@ -365,12 +365,12 @@ namespace InfraStructure.Migrations
                         principalTable: "Producer",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Product_Subcategory_SubcategoryID",
-                        column: x => x.SubcategoryID,
-                        principalTable: "Subcategory",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                    //table.ForeignKey(
+                    //    name: "FK_Product_Subcategory_SubcategoryID",
+                    //    column: x => x.SubcategoryID,
+                    //    principalTable: "Subcategory",
+                    //    principalColumn: "ID",
+                    //    onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

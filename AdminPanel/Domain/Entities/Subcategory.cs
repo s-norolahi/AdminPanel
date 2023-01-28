@@ -19,5 +19,6 @@ namespace Domain.Entities
         public string Name { get; set; }
 
         public Category Category { get; set; }
+
     }
 }

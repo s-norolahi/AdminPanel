@@ -12,6 +12,7 @@ namespace Domain.Entities
     {
         public long ID { get; set; }
 
+
         public int ProducerID { get; set; }
 
         public int CategoryID { get; set; }

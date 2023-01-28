@@ -38,7 +38,7 @@ public static class ApplicationBuilderExtensions
         //Dos not use Migrations, just Create Database with latest changes
         //dbContext.Database.EnsureCreated();
         //Applies any pending migrations for the context to the database like (Update-Database)
-        //dbContext.Database.Migrate();
+        dbContext.Database.Migrate();
 
         var dataInitializers = scope.ServiceProvider.GetServices<IDataInitializer>();
         foreach (var dataInitializer in dataInitializers)

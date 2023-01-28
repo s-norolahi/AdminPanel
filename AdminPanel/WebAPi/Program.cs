@@ -1,13 +1,19 @@
 using Application;
-using Autofac;
 using Autofac.Core;
+using AutoMapper;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
+
 using Domain.Entities.User;
 using InfraStructure.Contracts;
 using InfraStructure.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Services.Interface;
+using Services.Services;
+using System.Xml.Linq;
 using WebAPi;
 using WebFramework;
 using WebFramework.Configuration;
@@ -22,10 +28,17 @@ builder.Services.AddControllers();
 //builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfig();
 builder.Services.AddCustomIdentity(siteSetting.IdentitySettings);
+builder.Services.RegisterAutoMapper();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-builder.Host.ConfigureContainer<ContainerBuilder>(builder => {
-    // builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+//builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+
+
+
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
     builder.AddApiServices();
 });
 

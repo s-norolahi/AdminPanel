@@ -20,11 +20,11 @@ public class Repository<TEntity> : IRepository<TEntity>
     public virtual IQueryable<TEntity> Table => Entities;
     public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
     private IServiceScope _serviceScope;
-    public Repository(ApplicationDbContext dbContext, IServiceScope serviceScope)
+    public Repository(ApplicationDbContext dbContext/*, IServiceScope serviceScope*/)
     {
         DbContext = dbContext;
         Entities = DbContext.Set<TEntity>(); // City => Cities
-        _serviceScope = serviceScope;
+        //_serviceScope = serviceScope;
     }
 
     #region Async Method

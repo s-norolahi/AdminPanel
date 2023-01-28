@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Common;
+using Domain.Entities;
 using Domain.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,30 +11,44 @@ namespace WebAPi.Controllers.v1
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoriesRepository categoriesRepository;
+        private readonly ICategoriesRepository _categoriesRepository;
 
         public CategoryController(ICategoriesRepository categoriesRepository)
         {
-            this.categoriesRepository = categoriesRepository;
+            _categoriesRepository = categoriesRepository;
         }
 
         [HttpGet]
-        public ICollection<Category> Index()
+        public async Task<PagedList<CateGoryGridView>> Index(CancellationToken cancellationToken, string name, int pageNumber=0,int pagesize=10)
         {
-            return categoriesRepository.GetAllCategories();
+            return await _categoriesRepository.GetAll(pageNumber,pagesize,name,cancellationToken);
         }
-
-        [HttpGet("{id:required}")]
-        public CategoryPageDTO Category(int id, int? page, int? limit)
+        [HttpPost("create")]
+        public  async Task<ActionResult<Category>> Post(Category category, CancellationToken cancellationToken)
+        {            
+            return Ok(await _categoriesRepository.AddCategoryAsync(category, cancellationToken));
+        }
+        [HttpPut("update")]
+        public async Task<ActionResult<Category>> Put(Category category, CancellationToken cancellationToken)
         {
-            var result = new CategoryPageDTO
-            {
-                Category = categoriesRepository.GetCategory(id),
-                Subcategories = categoriesRepository.GetSubcategoriesForCategory(id),
-                Products = categoriesRepository.GetProductsForCategory(id, page ?? 1, limit ?? 20)
-            };
-
-            return result;
+            return Ok(await _categoriesRepository.UpdateCategoryAsync(category, cancellationToken));
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Category>> Get(int id, CancellationToken cancellationToken)
+        {
+            return Ok(await _categoriesRepository.FindCategoryAsync(id, cancellationToken));
+        }
+        //[HttpGet("{id:required}")]
+        //public CategoryPageDTO Category(int id, int? page, int? limit)
+        //{
+        //    var result = new CategoryPageDTO
+        //    {
+        //        Category = _categoriesRepository.GetCategory(id),
+        //        Subcategories = _categoriesRepository.GetSubcategoriesForCategory(id),
+        //        Products = _categoriesRepository.GetProductsForCategory(id, page ?? 1, limit ?? 20)
+        //    };
+
+        //    return result;
+        //}
     }
 }

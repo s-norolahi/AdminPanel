@@ -26,6 +26,7 @@ namespace Domain.Entities
 
         //public ApplicationUser ApplicationUser { get; set; }
         public ShippingMethod ShippingMethod { get; set; }
+        public ICollection<OrderFeature> OrderFeatures;
         public ICollection<OrderDetail> Details { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
 

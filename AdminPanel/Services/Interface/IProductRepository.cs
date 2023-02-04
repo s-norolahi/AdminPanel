@@ -9,6 +9,7 @@ namespace Services.Interface
 {
     public interface IProductRepository
     {
+        //Task<PagedList<CateGoryGridView>> GetAll(int pageNumber, int pageSize, string name, CancellationToken cancellationToken);
         Task<Product> AddProductAsync(Product product, CancellationToken cancellationToken);
         Task<Product> FindProductAsync(int id, CancellationToken cancellationToken);
         Task<Product> UpdateProductAsync(Product product, CancellationToken cancellationToken);

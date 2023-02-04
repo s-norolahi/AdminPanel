@@ -32,6 +32,7 @@ namespace Domain.Entities
         public Producer Producer { get; set; }
         public Category Category { get; set; }
         public Subcategory Subcategory { get; set; }
+        public ICollection<ProductFeature> ProductFeatures { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Discount> Discounts { get; set; }
     }

@@ -1,5 +1,7 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.Entities;
 using InfraStructure;
+using InfraStructure.Contracts;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -9,8 +11,32 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class OrderRepository//: IOrderRepository
+    public class OrderRepository : IBaseSevice, IOrderRepository
     {
+        private readonly IRepository<Order> _orderRepository;
+        protected readonly IMapper _mapper;
+
+        public OrderRepository(IRepository<Order> orderRepository, IMapper mapper)
+        {
+            _orderRepository = orderRepository;
+            _mapper = mapper;
+        }
+        public async Task<Order> AddOrderAsync(Order order, CancellationToken cancellationToken)
+        {
+            await _orderRepository.AddAsync(order, cancellationToken);
+            return order;
+        }
+        public async Task<Order> UpdateOrderAsync(Order order, CancellationToken cancellationToken)
+        {
+            await _orderRepository.UpdateAsync(order, cancellationToken);
+            return order;
+        }
+        public async Task<Order> FindOrderAsync(int id, CancellationToken cancellationToken)
+        {
+            var cat = await _orderRepository.GetByIdAsync(cancellationToken, id);
+            return cat;
+        }
+        //{
         /*
         private ApplicationDbContext context;
 

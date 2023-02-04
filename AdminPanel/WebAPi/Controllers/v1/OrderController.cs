@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Common;
+using Domain.Entities;
 using Domain.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,25 +11,53 @@ namespace WebAPi.Controllers.v1
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderRepository orderRepository;
-        private readonly IProductRepository productRepository;
-        private readonly IShippingMethodRepository shippingMethodRepository;
-        private readonly IPaymentTypeRepository paymentTypeRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public OrderController(
-               IOrderRepository orderRepository,
-               IProductRepository productRepository,
-               IShippingMethodRepository shippingMethodRepository,
-               IPaymentTypeRepository paymentTypeRepository
-              // UserManager<ApplicationUser> userManager
-              )
+        public OrderController(IOrderRepository orderRepository)
         {
-            this.orderRepository = orderRepository;
-            this.productRepository = productRepository;
-            this.shippingMethodRepository = shippingMethodRepository;
-            this.paymentTypeRepository = paymentTypeRepository;
-            //this.userManager = userManager;
+            _orderRepository = orderRepository;
         }
+
+        //[HttpGet]
+        //public async Task<PagedList<CateGoryGridView>> Index(CancellationToken cancellationToken, string name, int pageNumber = 0, int pagesize = 10)
+        //{
+        //    return await _categoriesRepository.GetAll(pageNumber, pagesize, name, cancellationToken);
+        //}
+        [HttpPost("create")]
+        public async Task<ActionResult<Order>> Post(Order order, CancellationToken cancellationToken)
+        {
+            return Ok(await _orderRepository.AddOrderAsync(order, cancellationToken));
+        }
+        [HttpPut("update")]
+        public async Task<ActionResult<Order>> Put(Order category, CancellationToken cancellationToken)
+        {
+            return Ok(await _orderRepository.UpdateOrderAsync(category, cancellationToken));
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> Get(int id, CancellationToken cancellationToken)
+        {
+            return Ok(await _orderRepository.FindOrderAsync(id, cancellationToken));
+        }
+        //{
+        //    private readonly IOrderRepository orderRepository;
+        //    private readonly IProductRepository productRepository;
+        //    private readonly IShippingMethodRepository shippingMethodRepository;
+        //    private readonly IPaymentTypeRepository paymentTypeRepository;
+
+        //    public OrderController(
+        //           IOrderRepository orderRepository,
+        //           IProductRepository productRepository,
+        //           IShippingMethodRepository shippingMethodRepository,
+        //           IPaymentTypeRepository paymentTypeRepository
+        //          // UserManager<ApplicationUser> userManager
+        //          )
+        //    {
+        //        this.orderRepository = orderRepository;
+        //        this.productRepository = productRepository;
+        //        this.shippingMethodRepository = shippingMethodRepository;
+        //        this.paymentTypeRepository = paymentTypeRepository;
+        //        //this.userManager = userManager;
+        //    }
 
         //[HttpGet("{id:required}")]
         //public Order GetOrderForId(long id)
@@ -117,17 +146,17 @@ namespace WebAPi.Controllers.v1
         //    return productsToReturn.Take(4).ToList();
         //}
 
-        [HttpGet("shipping-methods")]
-        public List<ShippingMethod> GetShippingMethods()
-        {
-            return shippingMethodRepository.GetAllShippingMethods().ToList();
-        }
+        //[HttpGet("shipping-methods")]
+        //public List<ShippingMethod> GetShippingMethods()
+        //{
+        //    return shippingMethodRepository.GetAllShippingMethods().ToList();
+        //}
 
-        [HttpGet("payment-types")]
-        public List<PaymentType> GetPaymentTypes()
-        {
-            return paymentTypeRepository.GetAllPaymentTypes().ToList();
-        }
+        //[HttpGet("payment-types")]
+        //public List<PaymentType> GetPaymentTypes()
+        //{
+        //    return paymentTypeRepository.GetAllPaymentTypes().ToList();
+        //}
 
         //[HttpPost("history")]
         //public async Task<List<Order>> OrderHistory([FromBody] UserDTO user)

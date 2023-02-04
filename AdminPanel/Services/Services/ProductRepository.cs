@@ -1,5 +1,7 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.Entities;
 using InfraStructure;
+using InfraStructure.Contracts;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -9,8 +11,32 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ProductRepository//: IProductRepository
+    public class ProductRepository : IBaseSevice, IProductRepository
     {
+        private readonly IRepository<Product> _productRepository;
+        protected readonly IMapper _mapper;
+
+        public ProductRepository(IRepository<Product> productRepository, IMapper mapper)
+        {
+            _productRepository = productRepository;
+            _mapper = mapper;
+        }
+        public async Task<Product> AddProductAsync(Product product, CancellationToken cancellationToken)
+        {
+            await _productRepository.AddAsync(product, cancellationToken);
+            return product;
+        }
+        public async Task<Product> UpdateProductAsync(Product product, CancellationToken cancellationToken)
+        {
+            await _productRepository.UpdateAsync(product, cancellationToken);
+            return product;
+        }
+        public async Task<Product> FindProductAsync(int id, CancellationToken cancellationToken)
+        {
+            var cat = await _productRepository.GetByIdAsync(cancellationToken, id);
+            return cat;
+        }
+        //{
         /*
         private ApplicationDbContext context;
 

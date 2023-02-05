@@ -7,9 +7,8 @@ using Services.Interface;
 
 namespace WebAPi.Controllers.v1
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CategoryController : ControllerBase
+    
+    public class CategoryController : BaseController
     {
         private readonly ICategoriesRepository _categoriesRepository;
 

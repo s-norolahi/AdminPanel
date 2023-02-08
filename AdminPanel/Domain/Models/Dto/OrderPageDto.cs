@@ -20,6 +20,7 @@ namespace Domain.Models.Dto
     public class OrderGridView : IHaveCustomMapping
     {
         public long ID { get; set; }
+        public string Name { get; set; }
         public string ApplicationUserID { get; set; }
         public int ShippingMethodID { get; set; }
         public DateTime DateAndTime { get; set; }

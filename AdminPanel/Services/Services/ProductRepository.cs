@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Domain.Common;
 using Domain.Entities;
+using Domain.Models.Dto;
 using InfraStructure;
 using InfraStructure.Contracts;
+using Microsoft.EntityFrameworkCore;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -35,6 +39,14 @@ namespace Services.Services
         {
             var cat = await _productRepository.GetByIdAsync(cancellationToken, id);
             return cat;
+        }
+        public async Task<PagedList<ProductGridView>> GetAll(int pageNumber, int pageSize, string name, CancellationToken cancellationToken)
+        {
+            var outPut = new PagedList<ProductGridView>();
+            var t = _productRepository.TableNoTracking.Where(x => x.Name.Contains(name)).OrderByDescending(d => d.ID);
+            outPut.TotalCount = await t.CountAsync();
+            outPut.list = await t.Skip(pageNumber * pageSize).Take(pageSize).ProjectTo<ProductGridView>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+            return outPut;
         }
         //{
         /*

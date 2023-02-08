@@ -17,20 +17,20 @@ using System.Xml.Linq;
 using WebAPi;
 using WebFramework;
 using WebFramework.Configuration;
+using WebFramework.MiddleWares;
 
 var builder = WebApplication.CreateBuilder(args);
 var siteSetting = SiteConfiguration.GetAppSetting(builder.Configuration);
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection(nameof(AppSetting)));/*for access appSetting in jwtService di*/
 builder.Services.AddContext(builder.Configuration);
-//builder.Services.AddAutorization();
-builder.Services.AddJwtAuthentication(siteSetting.JwtSettings);
-builder.Services.AddControllers();
-//builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerConfig();
 builder.Services.AddCustomIdentity(siteSetting.IdentitySettings);
 builder.Services.RegisterAutoMapper();
+builder.Services.AddJwtAuthentication(siteSetting.JwtSettings);
+//builder.Services.AddAutorization();
+//builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerConfig();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-
+builder.Services.AddControllers();
 //builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 //builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
@@ -53,8 +53,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-//app.UseAuthentication();
-//app.UseAuthorization();
-app.MapControllers();
+app.UseRouting();
+app.UseCustomExceptionHandler();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.IntializeDatabase();
 app.Run();

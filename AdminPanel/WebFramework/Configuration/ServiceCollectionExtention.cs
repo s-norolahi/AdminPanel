@@ -33,10 +33,10 @@ namespace WebFramework.Configuration
         }
         public static void AddAutorization(this IServiceCollection services)
         {
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(new AuthorizeFilter("Bearer")); //Apply AuthorizeFilter as global filter to all actions
-            });
+            //services.AddControllers(options =>
+            //{
+            //    options.Filters.Add(new AuthorizeFilter("Bearer")); //Apply AuthorizeFilter as global filter to all actions
+            //});
         }
         public static void AddJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings)
         {

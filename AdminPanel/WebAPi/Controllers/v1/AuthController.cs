@@ -16,7 +16,7 @@ public class AuthController : ControllerBase
         _jwtService = jwtService;
         _userService = userService;
     }
-   // [AllowAnonymous]
+    [AllowAnonymous]
     [HttpPost(Name = "GetToken")]
     public async Task<ActionResult> GetToken(TokenRequest tokenRequest, CancellationToken cancellationToken)
     {

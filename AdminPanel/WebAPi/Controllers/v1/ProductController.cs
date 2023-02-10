@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Domain.Common;
+using Domain.Entities;
+using Domain.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface;
@@ -16,11 +18,11 @@ namespace WebAPi.Controllers.v1
             _productRepository = productRepository;
         }
 
-        //[HttpGet]
-        //public async Task<PagedList<CateGoryGridView>> Index(CancellationToken cancellationToken, string name, int pageNumber = 0, int pagesize = 10)
-        //{
-        //    return await _categoriesRepository.GetAll(pageNumber, pagesize, name, cancellationToken);
-        //}
+        [HttpGet]
+        public async Task<PagedList<ProductGridView>> Index(CancellationToken cancellationToken, string name, int pageNumber = 0, int pagesize = 10)
+        {
+            return await _productRepository.GetAll(pageNumber, pagesize, name, cancellationToken);
+        }
         [HttpPost("create")]
         public async Task<ActionResult<Product>> Post(Product order, CancellationToken cancellationToken)
         {

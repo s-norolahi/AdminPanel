@@ -18,11 +18,11 @@ namespace WebAPi.Controllers.v1
             _orderRepository = orderRepository;
         }
 
-        //[HttpGet]
-        //public async Task<PagedList<CateGoryGridView>> Index(CancellationToken cancellationToken, string name, int pageNumber = 0, int pagesize = 10)
-        //{
-        //    return await _categoriesRepository.GetAll(pageNumber, pagesize, name, cancellationToken);
-        //}
+        [HttpGet]
+        public async Task<PagedList<OrderGridView>> Index(CancellationToken cancellationToken, string name, int pageNumber = 0, int pagesize = 10)
+        {
+            return await _orderRepository.GetAll(pageNumber, pagesize, name, cancellationToken);
+        }
         [HttpPost("create")]
         public async Task<ActionResult<Order>> Post(Order order, CancellationToken cancellationToken)
         {

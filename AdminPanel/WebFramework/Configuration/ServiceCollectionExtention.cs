@@ -100,7 +100,7 @@ namespace WebFramework.Configuration
                        
                         //Find user and token from database and perform your custom validation
                         var userId = claimsIdentity.GetUserId<int>();
-                        var user = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted, userId);
+                        var user = await userRepository.FindByIdAsync( userId, context.HttpContext.RequestAborted);
 
                         //if (user.SecurityStamp != Guid.Parse(securityStamp))
                         //    context.Fail("Token security stamp is not valid.");

@@ -7,7 +7,7 @@ using Services.Interface;
 
 namespace WebAPi.Controllers.v1
 {
-    
+
     public class CategoryController : BaseController
     {
         private readonly ICategoriesRepository _categoriesRepository;
@@ -18,13 +18,26 @@ namespace WebAPi.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<PagedList<CateGoryGridView>> Index(CancellationToken cancellationToken, string name, int pageNumber=0,int pagesize=10)
+        //public async Task<ActionResult<PagedList<CateGoryGridView>>> GetAll(CancellationToken cancellationToken, string name, int pageNumber=0,int pagesize=10)
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken, string name, int pageNumber = 0, int pagesize = 10)
         {
-            return await _categoriesRepository.GetAll(pageNumber,pagesize,name,cancellationToken);
+            try
+            {
+                var result = await _categoriesRepository.GetAll(pageNumber, pagesize, name, cancellationToken);
+                //return Ok();
+                return StatusCode(200, result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+
+            }
+
         }
         [HttpPost("create")]
-        public  async Task<ActionResult<Category>> Post(Category category, CancellationToken cancellationToken)
-        {            
+        //public  async Task<ActionResult<Category>> Post(Category category, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post(Category category, CancellationToken cancellationToken)
+        {
             return Ok(await _categoriesRepository.AddCategoryAsync(category, cancellationToken));
         }
         [HttpPut("update")]

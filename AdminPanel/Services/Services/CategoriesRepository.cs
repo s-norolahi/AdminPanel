@@ -45,7 +45,7 @@ namespace Services.Services
         public async Task<PagedList<CateGoryGridView>> GetAll(int pageNumber, int pageSize, string name, CancellationToken cancellationToken)
         {
             var outPut = new PagedList<CateGoryGridView>();
-            var t = _categuryRepository.TableNoTracking.Where(x => x.Name.Contains(name)).OrderByDescending(d => d.ID);
+            var t = _categuryRepository.TableNoTracking.Where(x => x.Name.Contains(name)).OrderByDescending(d => d.Id);
             outPut.TotalCount = await t.CountAsync();
             outPut.list = await t.Skip(pageNumber * pageSize).Take(pageSize).ProjectTo<CateGoryGridView>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
             return outPut;

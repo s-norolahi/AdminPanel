@@ -10,13 +10,13 @@ namespace Domain.Entities
 {
     public class Subcategory : IEntity
     {
-        public int ID { get; set; }
+        
 
         public int CategoryID { get; set; }
 
         [Required]
         [StringLength(200)]
-        public string Name { get; set; }
+        public string SubCatName { get; set; }
 
         public Category Category { get; set; }
 

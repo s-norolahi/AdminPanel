@@ -1,0 +1,61 @@
+public static IServiceCollection AddJWT(this IServiceCollection services)
+        {
+            var sp = services.BuildServiceProvider();
+            Configs configs = sp.GetService<IOptions<Configs>>().Value;
+            var key = Encoding.UTF8.GetBytes(configs.TokenKey);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    //برای کنترل زمان توکن
+                    ClockSkew = TimeSpan.FromMinutes(configs.TokenTimeout),
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+                x.Events = new JwtBearerEvents
+                {
+
+                    OnChallenge = context => {
+
+                        context.HandleResponse();
+                        context.Response.StatusCode = 401;
+                        context.Response.ContentType = "application/json";
+
+                        var result = JsonConvert.SerializeObject(new
+                        {
+                            status = "un-authorized",
+                            message = "un-authorized"
+                        });
+
+                        return context.Response.WriteAsync(result);
+                    },
+
+                    OnForbidden = context => {
+
+                        context.Response.StatusCode = 403;
+                        context.Response.ContentType = "application/json";
+
+                        var result = JsonConvert.SerializeObject(new
+                        {
+                            status = "un-authorized",
+                            message = "un-authorized"
+                        });
+
+                        return context.Response.WriteAsync(result);
+                    }
+                };
+            });
+
+            return services;
+        }
